@@ -8,14 +8,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#/">Task Daily</a>
+      <a class="navbar-brand" href="#/">TaskNinja</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
       
       <ul class="nav navbar-nav navbar-left">
-        <li ng-show="signedIn()"><a href="#/post">Post a Task</a></li>
+        <li ng-show="signedIn()"><a href="" data-toggle="modal" data-target="#posModal">Post a Task</a></li>
         <li><a href="#/browse">Browse Tasks</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -32,7 +32,7 @@
           <ul class="dropdown-menu">            
             <li><a href="" data-toggle="modal" data-target="#pasModal">
               <i class="mdi-action-lock"></i> Change Password</a></li>
-            <li><a href="#" ng-click="logout()">
+            <li><a href="" ng-click="logout()">
               <i class="mdi-action-exit-to-app"></i> Logout</a></li>
           </ul>
         </li> 
@@ -42,6 +42,7 @@
   </div><!-- /.container-fluid -->
 
   <div ng-show="signedIn()" ng-include="'views/partials/changepass.html'"></div>
+  <div ng-show="signedIn()" ng-include="'views/partials/post.html'"></div>
 
 </nav>
 
