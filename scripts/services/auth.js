@@ -47,6 +47,10 @@ app.factory('Auth', function(FURL, $firebaseAuth, $firebase) {
 
     signedIn: function() {
       return !!Auth.user.provider; //using !! means (0, undefined, null, etc) = false | otherwise = true
+    },
+
+    requireAuth: function() {
+      return auth.$requireAuth();
     }
   };
 
