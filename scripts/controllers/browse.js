@@ -1,10 +1,11 @@
 'use strict';
 
-app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth) {
+app.controller('BrowseController', function($scope, $routeParams, toaster, Task, Auth, Comment) {
 
 	$scope.searchTask = '';		
 	$scope.tasks = Task.all;
 
+	$scope.user = Auth.user;
 	$scope.signedIn = Auth.signedIn;
 
 	$scope.listMode = true;
@@ -23,10 +24,13 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 		if($scope.signedIn()) {
 			// Check if the current login user is the creator of selected task
 			$scope.isTaskCreator = Task.isCreator;
-			
+
 			// Check if the selectedTask is open
-			$scope.isOpen = Task.isOpen;			
+			$scope.isOpen = Task.isOpen;
 		}
+		
+		// Get list of comments for the selected task
+		$scope.comments = Comment.comments(task.$id);
 	};
 
 	// --------------- TASK ---------------	
@@ -36,4 +40,19 @@ app.controller('BrowseController', function($scope, $routeParams, toaster, Task,
 			toaster.pop('success', "This task is cancelled successfully.");
 		});
 	};
+
+	// --------------- COMMENT ---------------	
+
+	$scope.addComment = function() {
+		var comment = {
+			content: $scope.content,
+			name: $scope.user.profile.name,
+			gravatar: $scope.user.profile.gravatar
+		};
+
+		Comment.addComment($scope.selectedTask.$id, comment).then(function() {				
+			$scope.content = '';		
+		});		
+	};
+	
 });
